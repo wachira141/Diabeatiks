@@ -9,3 +9,4 @@ class UserLocation():
     county_id = ''
     subcounty = ''
     location_id = ''
+    village_id = ''

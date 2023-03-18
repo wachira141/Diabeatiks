@@ -10,4 +10,3 @@ class Subcounty(BaseModel):
     """class Subcounty declaration"""
     name = ''
     county = ''
-    locations = []

@@ -122,19 +122,23 @@ class FileStorage:
         return None
         
 
-    def delete(self, cls=None, id=None):
+    def delete(self, cls_name=None, id=None):
         """delete an object saved in the json file"""
-        if cls is None:
+        if cls_name is None:
             print("class should not be None")
             return None
         if id is None:
             print("id should not be None")
             return None
         
-        key = cls.__class__.__name__ + '.' + cls.id
+        
+        key = cls_name + '.' + id
+       
+      
         if key in self.__objects:
-                del self.__objects[key]
-            # print("No instance of id {} found".format(id))
+            del self.__objects[key]
+            models.storage.save()
+            return True
             
         
     

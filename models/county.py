@@ -7,5 +7,3 @@ from models.base_model import BaseModel
 class County(BaseModel):
     """declare class County"""
     name = ''
-    subcounties = []
-
