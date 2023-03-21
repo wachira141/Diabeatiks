@@ -9,3 +9,6 @@ class Daetician(Registrant):
     community = ''
     facility_id = ''
     appointments = ''
+    def __init__(self, *args, **kwargs):
+        """init this class"""
+        super().__init__(*args, **kwargs)

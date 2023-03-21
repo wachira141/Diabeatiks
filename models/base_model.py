@@ -16,18 +16,19 @@ class BaseModel:
         """initialize the BaseModel"""
         if kwargs:
             for key, value in kwargs.items():
-                setattr(self, key, value)
+                if key != "__class__":
+                    setattr(self, key, value)
 
-            if kwargs.get('id', None) is None:
-                self.id = str(uuid4())
             if kwargs.get('created_at', None) and type(self.created_at) is str:
                 self.created_at = datetime.strptime(kwargs["created_at"], time)
             else:
                 self.created_at = datetime.utcnow()
             if kwargs.get('updated_at', None) and type(self.updated_at) is str:
-                self.created_at = datetime.strptime(kwargs["updated_at"], time)
+                self.updated_at = datetime.strptime(kwargs["updated_at"], time)
             else:
                 self.updated_at = datetime.utcnow()
+            if kwargs.get('id', None) is None:
+                self.id = str(uuid4())
         else:
 
             self.id = str(uuid4())
@@ -40,6 +41,7 @@ class BaseModel:
     
     def save(self):
         """ persist/save our obj in a fs/db"""
+        self.updated_at = datetime.utcnow()
         models.storage.new(self)
         models.storage.save()
     def to_dict(self):

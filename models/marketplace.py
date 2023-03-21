@@ -12,3 +12,6 @@ class Market_place(BaseModel):
     description = ''
     price = float
     category = ''
+    def __init__(self, *args, **kwargs):
+        """init this class"""
+        super().__init__(*args, **kwargs)

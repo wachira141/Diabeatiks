@@ -8,3 +8,6 @@ class Village(BaseModel):
     """declaration of Village model"""
     name = ''
     location = ''
+    def __init__(self, *args, **kwargs):
+        """init this class"""
+        super().__init__(*args, **kwargs)

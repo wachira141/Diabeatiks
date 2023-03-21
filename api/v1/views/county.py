@@ -12,12 +12,13 @@ def create_county():
     if not request.get_json():
         abort(400, descriptions='please provide a valid json')
     
+
     data = request.get_json()
 
     counties = storage.all(County).values()
     for obj in counties:
         if obj.to_dict()['name'] == data.get('name'):
-            return abort(400, description='{} county already added'.format(data['name']))
+            abort(400, description='{} county already added'.format(data['name']))
     
     new_county = County(**data)
     new_county.save() 

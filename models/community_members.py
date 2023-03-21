@@ -11,3 +11,6 @@ class Community_members(BaseModel):
     community_id = ''
     join_date = ''
     member_approved = ''
+    def __init__(self, *args, **kwargs):
+        """init this class"""
+        super().__init__(*args, **kwargs)

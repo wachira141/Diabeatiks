@@ -7,3 +7,6 @@ from api.v1.views.doctor import *
 from api.v1.views.county import *
 from api.v1.views.subcounty import *
 from api.v1.views.locations import *
+from api.v1.views.drug import *
+from api.v1.views.prescription import *
+from api.v1.views.prescription_drug import *

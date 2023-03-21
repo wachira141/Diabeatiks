@@ -103,6 +103,7 @@ class FileStorage:
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
         except:
+            print("error")
             pass
 
 
@@ -113,7 +114,7 @@ class FileStorage:
             print("class cannot be none")
             return None
         if id == None:
-            print("id filed should not be none")
+            print("id field should not be none")
             return None
         items = models.storage.all(cls)
         for k, v in items.items():

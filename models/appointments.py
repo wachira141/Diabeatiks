@@ -18,3 +18,6 @@ class Appointments(BaseModel):
     other_med_condt = ''
     appointment_date = ''
     appointment_approved = ''
+    def __init__(self, *args, **kwargs):
+        """init this class"""
+        super().__init__(*args, **kwargs)

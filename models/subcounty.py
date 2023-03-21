@@ -10,3 +10,6 @@ class Subcounty(BaseModel):
     """class Subcounty declaration"""
     name = ''
     county = ''
+    def __init__(self, *args, **kwargs):
+        """init this class"""
+        super().__init__(*args, **kwargs)

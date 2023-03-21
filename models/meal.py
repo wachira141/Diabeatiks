@@ -10,3 +10,6 @@ class Meal(BaseModel):
     break_fast = ''
     lunch = ''
     supper = ''
+    def __init__(self, *args, **kwargs):
+        """init this class"""
+        super().__init__(*args, **kwargs)

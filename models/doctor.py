@@ -12,3 +12,6 @@ class Doctor(Registrant):
     speciality = ''
     title = ''
     appointments = False
+    def __init__(self, *args, **kwargs):
+        """init this class"""
+        super().__init__(*args, **kwargs)
