@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from api.v1.views import app_views
 from models.prescription import Prescription
+from models.appointments import Appointments
 from models.patient import Patient
 from models import storage
 from flask import json, jsonify, make_response, request, abort
@@ -27,13 +28,32 @@ def create_prescription(id):
         abort(404, description='No Patient found')
     
     if app_storage == 'fs_storage':
-        data.update('drugs', [])
+        data.update({'drugs', []})
 
     
     new_presc = Prescription(**data)
     
     new_presc.save()
     return make_response(jsonify(new_presc.to_dict()), 200)
+
+
+
+@app_views.route('/prescription/<presc_id>/appointment/<app_id>', methods=['PUT'], strict_slashes=False)
+def add_presc_to_app(presc_id, app_id):
+    """add a prescriptionto an appointment"""
+    appointment = storage.get(Appointments, app_id)
+    if appointment is None:
+        abort(404, description='appointment not found')
+
+    prescription = storage.get(Prescription, presc_id)
+    if prescription is None:
+        abort(404, description='prescription not found')
+    
+
+    setattr(appointment, 'prescription', presc_id)
+    appointment.save()
+    return make_response(jsonify(appointment.to_dict()), 200)
+
 
 @app_views.route('/prescription/<id>', methods=['GET'], strict_slashes=False)
 def get_presc(id):

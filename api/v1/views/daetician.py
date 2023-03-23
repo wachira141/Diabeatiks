@@ -7,7 +7,7 @@ from models import storage
 
 
 @app_views.route('/daeticians', methods=['GET'], strict_slashes=False)
-def get_daetician():
+def get_daeticians():
     """get all daetician's from our storage"""
     daeticians = storage.all(Daetician)
     items = []
