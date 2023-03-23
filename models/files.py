@@ -6,9 +6,9 @@ from models.base_model import BaseModel
 
 class Files(BaseModel):
     """class Files declaration"""
-    user_id = ''
+    user = ''
     sent_to = ''
-    files = []
+    # files = []
     def __init__(self, *args, **kwargs):
         """init this class"""
         super().__init__(*args, **kwargs)

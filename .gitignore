@@ -2,3 +2,4 @@
 .env
 todos.txt
 file.json
+/file.json

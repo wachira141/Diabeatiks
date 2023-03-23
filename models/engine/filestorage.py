@@ -10,6 +10,7 @@ from models.county import County
 from models.daetician import Daetician
 from models.drugs import Drugs
 from models.files import Files
+from models.file import Single_file
 from models.location import Location
 from models.marketplace import Market_place
 from models.meal import Meal
@@ -26,7 +27,7 @@ import models
 classes = {
     "Doctor":Doctor, 
     "Patient":Patient,
-    "Appointment":Appointments,
+    "Appointments":Appointments,
     "CMHW":CMHW,
     "Community":Community,
     "C_members":Community_members,
@@ -34,6 +35,7 @@ classes = {
     "Daetician":Daetician,
     "Drugs":Drugs,
     "Files":Files,
+    "Single_file":Single_file,
     "Location":Location,
     "MarketPlace":Market_place,
     "Meal":Meal,
@@ -103,7 +105,7 @@ class FileStorage:
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
         except:
-            print("error")
+            print('erro')
             pass
 
 
