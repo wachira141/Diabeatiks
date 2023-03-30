@@ -10,7 +10,7 @@ class Patient(Registrant):
     diabetes_stage = ''
     height = 0
     weight = 0
-    community = ''
+    community = '' #community joined
     daetician = ''
     doctor = ''
     prescription = []

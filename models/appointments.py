@@ -19,7 +19,7 @@ class Appointments(BaseModel):
     prescription = '' #fk
     meal_plan = ''
     file_uploads = '' #fk
-    other_med_condt = ''
+    other_med_condt = ''  
     appointment_date = ''
     approved = False
     description = ''

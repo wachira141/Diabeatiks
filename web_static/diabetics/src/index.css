@@ -1,0 +1,156 @@
+:root{
+
+  /* secondary colors */
+  --clr-secondary-1:#ffffff;
+  
+  /* gray shades */
+  --clr-gray-1:hsl(0, 0%, 50%);
+  --clr-gray-2:rgba(255, 255, 255, 0.90);
+
+  /* fading shades */
+  --clr-black-fade-1:rgba(0, 0, 0, 0.301);
+  --clr-black-fade-2:rgba(0, 0, 0, 0.65);
+
+  --clr-black:#000000;
+  --clr-red-dark:#ff1100;
+  --clr-green-dark:green;
+  --clr-green-light:rgba(0, 128, 0, 0.575);
+  /* functions */
+  --radius:0.25rem;
+  --border: 1px rgba(0, 0, 0, 0.85) solid;
+
+}
+
+
+
+*,
+::after,
+::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  background: #ffffff;
+  line-height: 1.5rem;
+  letter-spacing: 2px;
+}
+
+h1{
+  line-height: 1.75;
+}
+h4, h5, h6, p{
+  line-height: 1.25;
+  margin-bottom: 0.25rem;
+}
+h4{
+  font-size: 1.35rem;
+}
+h5{
+  font-size: 1rem;
+}
+p{
+  font-size: 0.825rem;
+}
+
+.articles{
+
+  max-width: 32rem;
+  margin: auto;
+}
+.nowrap{
+  white-space:nowrap;
+  color: red;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.svg{
+  display: inline-block;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  background: none;
+  font-size: 1.25rem;
+  border: none;
+}
+
+svg::before{
+  content: '';
+  margin: 0;
+  padding: 0;
+}
+
+img{
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+
+img::after{
+  content: '';
+  margin:0;
+  padding:0;
+}
+
+
+.footer{
+  text-align: center;
+  padding-top: 2rem;
+  margin-bottom:0;
+}
+
+.footer h5{
+  font-weight: 400;
+  font-size: 16px;
+  margin: 0;
+}
+.footer p{
+  font-size: 14px;
+}
+
+@media screen and (min-width: 480px){
+  p{
+    font-size: 1rem;
+  }
+  h5{
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (min-width: 776px){
+  h4 {
+    font-size: 1.5rem;
+  }
+  h5{
+    font-size:1.25rem;
+  }
+}
+
+

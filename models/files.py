@@ -6,8 +6,8 @@ from models.base_model import BaseModel
 
 class Files(BaseModel):
     """class Files declaration"""
-    user = ''
-    sent_to = ''
+    user = '' #sender
+    sent_to = '' #to whom the file is sent to 
     # files = []
     def __init__(self, *args, **kwargs):
         """init this class"""
