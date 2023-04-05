@@ -99,7 +99,7 @@ Patients will be able to share information with others which include displaying 
 <br/>
 <br/>
 <h2>Prescription</h2>
-<h3>Create a Prescription/h3>
+<h3>Create a Prescription</h3>
 <p>curl -X POST -H "Content-Type:application/json" -d'{"name":"Endarasha"}' http://127.0.0.1:5000/api/v1/user/user_id/prescription
 </p>
 <h3>add a prescription to an appointment</h3>
@@ -177,19 +177,21 @@ Patients will be able to share information with others which include displaying 
 <p>curl -X DELETE http://127.0.0.1:5000/api/v1/drug/id</p>
 
 <h1><b>console Usage</b></h1>
-localhost PORTFOLIO$./console.py
-diabetiks$ create Patient f_name="wilson" l_name=wachira age=26 email=wachiraw424@gmail.com<br/>
-diabetiks$ create County name=Nairobi<br/>
-diabetiks$ delete Patient 181a7901-3a45-4382-9931-1e08b80f06df<br/>
-diabetiks$ delete Drug 88c95225-6359-4d43-b990-b885fe5e7d3b<br/>
-diabetiks$ all Prescriptions<br/>
-diabetiks$ all <br/>
-diabetiks$ get Drug 88c95225-6359-4d43-b990-b885fe5e72d6<br/>
-diabetiks$ count Prescription<br/>
-diabetiks$ count <br/>
-diabetiks$ update Pharmacist 88c95225-6359-4d43-b990-b885fe5q45g7<br/>
+
+localhost PORTFOLIO$./console.py <br/>
+* diabetiks$ create Patient f_name="wilson" l_name=wachira age=26 email=wachiraw424@gmail.com<br/>
+* diabetiks$ create County name=Nairobi<br/>
+* diabetiks$ delete Patient 181a7901-3a45-4382-9931-1e08b80f06df<br/>
+* diabetiks$ delete Drug 88c95225-6359-4d43-b990-b885fe5e7d3b<br/>
+*diabetiks$ all Prescriptions<br/>
+* diabetiks$ all <br/>
+* diabetiks$ get Drug 88c95225-6359-4d43-b990-b885fe5e72d6<br/>
+* diabetiks$ count Prescription<br/>
+* diabetiks$ count <br/>
+* diabetiks$ update Pharmacist 88c95225-6359-4d43-b990-b885fe5q45g7<br/>
 <p>show usage of help</p>
-diabetiks$ help Classname<br/>
+
+* diabetiks$ help Classname<br/>
 
 
 ## Installation
