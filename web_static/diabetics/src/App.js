@@ -1,14 +1,21 @@
 import {
-  Landing
-} from './Pages'
+Route,
+Routes,
+} from 'react-router-dom'
 
 import {
-  Footer
-} from './Components'
+  Landing,
+  DoctorsCorner,
+  Footer,
+} from './Pages'
+
 function App() {
   return (
-    <div className="App">
-      <Landing />
+    <div className="app">
+      <Routes>
+        <Route exact path='/' element={<Landing />}></Route>
+        <Route exact path='/services' element={ <DoctorsCorner />}></Route>
+      </Routes>
       <Footer />
     </div>
   );

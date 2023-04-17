@@ -1,11 +1,6 @@
-import Features from "./Features";
-import FeatureCard from './FeatureCard'
-import About from "./About";
-import Footer from "./Footer";
+import CornerTemplate from "./CornerTemplate";
+
 
 export {
-    Features,
-    FeatureCard,
-    About,
-    Footer,
+    CornerTemplate
 }
