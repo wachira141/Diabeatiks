@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import cmd
 import models, shlex
-
+from typing import List, Union
 
 from models.patient import Patient
 from models.doctor import Doctor
@@ -61,16 +61,16 @@ class DBTKCommand(cmd.Cmd):
     def emptyline(self) -> bool:
         return False
     
-    def do_exit(self, arg):
+    def do_exit(self, arg: str):
         """type exit to exit the console"""
         return True
     
-    def do_EOF(sle, arg):
+    def do_EOF(sle, arg: str) -> bool:
         """Exit the program"""
         return True
 
-    def do_create(self, arg):
-        args = arg.split()
+    def do_create(self, arg: str) -> Union[bool, None]:
+        args: List = arg.split()
         if len(args) == 0:
             print("**classname missing**")
             return False
@@ -98,10 +98,10 @@ class DBTKCommand(cmd.Cmd):
             print(instance.id)
             models.storage.reload()
         else:
-            print('No instance of class {} found'.format(args[0]))
+            print('No class of {} found'.format(args[0]))
             return False
     
-    def do_delete(self, arg):
+    def do_delete(self, arg: str) -> Union[bool, None]:
         """delete an object"""
         args = arg.split()
         if len(args) == 0:
@@ -141,7 +141,7 @@ class DBTKCommand(cmd.Cmd):
         print(", ".join(obj_list), end="")
         print("]")
 
-    def do_get(self, arg):
+    def do_get(self, arg: str) -> int:
         """get a single class instance"""
         args = shlex.split(arg)
         if len(args) == 0:
@@ -164,7 +164,7 @@ class DBTKCommand(cmd.Cmd):
     
 
 
-    def do_count(self, arg):
+    def do_count(self, arg:str):
         """return the num of saved objects"""
         args = shlex.split(arg)
         if len(args )> 0:
@@ -175,7 +175,7 @@ class DBTKCommand(cmd.Cmd):
             return 0
         
 
-    def do_update(self, arg):
+    def do_update(self, arg: str) -> bool:
         """update a json object saved in the JSON file"""
         args = shlex.split(arg)
         if len(args) == 0:

@@ -11,15 +11,15 @@ class Single_file(BaseModel, Base):
     if storage_type == 'db_storage':
         __tablename__ = 'single_file'
         name = Column(String(60), nullable=False)
-        file_uploaded = Column(String(200), nullable=False)
+        file_link = Column(String(200), nullable=False)
         description = Column(String(400))
         file_id = Column(String(60), ForeignKey('files.id'), nullable=False)
     else:
-        name = ''             #name of the file
-        file_uploaded = ''    #link to where the file is stored. (ftp server)
-        description = ''      #details about the file
-        file_id = ''          # which file it belongs #fk parent file
+        name = ''         #name of the file
+        file_link = ''    #link to where the file is stored. (ftp server)
+        description = ''  #details about the file
+        file_id = ''      # which file it belongs #fk parent file
 
-    def __init__(self, *args, **kwargs):
+    def __init__(*args, **kwargs):
         """init single file and pass args to the superclass"""
         super().__init__(*args, **kwargs)

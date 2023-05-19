@@ -15,6 +15,7 @@ def get_patients():
         items.append(obj.to_dict())
     return make_response(json.dumps(items), 200)
 
+
 @app_views.route('/patient/<id>', methods=['GET'], strict_slashes=False)
 def get_patient(id):
     """get a single object of a patient"""
@@ -29,13 +30,13 @@ def create_patient():
     """create a new patient """
     if not request.get_json():
         abort(400, description='please provide a valid json format')
-    names = ['f_name', 'l_name']
-    for name in names:
-        if name not in request.get_json():
-            abort(400, description='please provide {}'.format(name))
 
-    if 'email' not in request.get_json():
-        abort(400, description='email is not provided')
+    required_details = ['f_name', 'l_name', 'email']
+
+    for detail in required_details:
+        if detail not in request.get_json():
+            abort(400, description='please provide {}'.format(detail))
+
     # check the email format
     data = request.get_json()
     new_patient = Patient(**data)

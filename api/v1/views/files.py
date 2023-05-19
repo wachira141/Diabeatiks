@@ -10,7 +10,7 @@ from models.doctor import Doctor
 from models.pharmacist import Pharmacist
 from models.patient import Patient
 
-field_list = {
+authorized_users_objects = {
     "daetician":Daetician, 
     "pharmacist":Pharmacist, 
     "doctor":Doctor,
@@ -20,23 +20,21 @@ field_list = {
 
 @app_views.route('/user/appointment/<app_id>/files', methods=['POST'], strict_slashes=False)
 def create_file(app_id):
-    """create a new prescription for a patient"""
+    """create a new file container for a patient"""
     if not request.get_json():
         abort(400, description='Not a json')
 
-
+    # get category from the query string
     category = request.args.get('category', default=None, type=str)
     if category is None:
         abort(404, description='No category specified')
-    
-
 
     data = request.get_json()
 
     if not data['title']:
         abort(400, description='provide the files title')
+
     #simulate checking user with a cookie
-   
     if 'user' not in data:
         """user is the id of the file creator passed through the body"""
         abort(404, description='no user requested')
@@ -44,22 +42,23 @@ def create_file(app_id):
     authorized_categories = ['doctor', 'daetician', 'pharmacist', 'patient']
 
     if category not in authorized_categories:
-        abort(400, description='Unknown user specified')
+        abort(400, description='Unknown object specified')
     
-    file_creator = storage.get(field_list[category], data['user'])
+    file_creator = storage.get(authorized_users_objects[category], data['user'])
     
     if file_creator is None:
         abort(404, description='No {} found with the id specified'.format(category))
 
-    files = Files(**data)
+
+    files = Files(**data)  #create a file and save it
     files.save()
 
-    appointments = storage.get(Appointments, app_id)
+    appointments = storage.get(Appointments, app_id) #get the appointment used while creating this file. (file is a child of the Appointment on frontend)
     if appointments is None:
         abort(400, description='Unknown error occurred!')
    
     
-    setattr(appointments, 'file_uploads', files.id)
+    setattr(appointments, 'file_uploads', files.id) #link the file to the appointment
     appointments.save()
 
     return make_response(jsonify(files.to_dict()), 201)
@@ -90,6 +89,7 @@ def update_files(file_id):
     """update a file in the storage"""
     if not request.get_json():
         abort(400, description='please provide a valid json')
+        
     file = storage.get(Files, file_id)
     if file is None:
         abort(404, description='No file with an id of {}'.format(file_id))

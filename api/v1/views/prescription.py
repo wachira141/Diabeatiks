@@ -21,14 +21,15 @@ def create_prescription(id):
          on fs, prescription will have a list of drugs
          on db_storage, presc will have a many to many rlationship with drugs
     """
-    if not data['title']:
+    if not data['title']: #check the title of the prescription
         abort(400, description='provide the prescription title')
+
     user = storage.get(Patient, id)
     if user is None:
         abort(404, description='No Patient found')
     
     if app_storage == 'fs_storage':
-        data.update({'drugs', []})
+        data.update({'drugs', []}) # if storage is db, create an array of drugs in the prescription
 
     
     new_presc = Prescription(**data)
@@ -40,7 +41,7 @@ def create_prescription(id):
 
 @app_views.route('/prescription/<presc_id>/appointment/<app_id>', methods=['PUT'], strict_slashes=False)
 def add_presc_to_app(presc_id, app_id):
-    """add a prescriptionto an appointment"""
+    """add/link a prescription to an appointment"""
     appointment = storage.get(Appointments, app_id)
     if appointment is None:
         abort(404, description='appointment not found')
@@ -54,6 +55,10 @@ def add_presc_to_app(presc_id, app_id):
     appointment.save()
     return make_response(jsonify(appointment.to_dict()), 200)
 
+'''
+the argument on view (def get_presc) and (def get_prescs) is that a user may be suffering
+different diseases and each disease has its own prescription. so its fit to keep an order of separation
+'''
 
 @app_views.route('/prescription/<id>', methods=['GET'], strict_slashes=False)
 def get_presc(id):
@@ -84,6 +89,7 @@ def update_presc_update(presc_id):
     """update prescription's details"""
     if not request.get_json():
         abort(400, description='please provide a valid json')
+
     prescription = storage.get(Prescription, presc_id)
     if prescription is None:
         abort(404, description='No Prescription with an id of {}'.format(id))
@@ -95,6 +101,7 @@ def update_presc_update(presc_id):
     for key, val in data.items():
         if key not in ignore_keys:
             setattr(prescription, key, val)
+            
     prescription.save
     return make_response(json.dumps(prescription.to_dict()), 200)
     

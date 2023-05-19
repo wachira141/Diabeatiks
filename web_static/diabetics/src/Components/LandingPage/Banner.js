@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { CgMenuRight, CgClose } from 'react-icons/cg'
+import { CgClose } from 'react-icons/cg'
 import detailImage from '../../images/detailimage.jpg'
-import logo from '../../images/logo.jpeg'
+
 
 import {links} from '../../statics'
 
@@ -11,26 +11,6 @@ const Banner = () => {
   return (
     <Wrapper>
         <div className="background"></div>
-        {/* navbar */}
-        <div className="navbar">
-            <div className="logo">
-                <img src={logo} alt="logo" className='logo-img'/>
-            </div>
-            <ul className="navlinks">
-                {
-                    links.map((link, index)=>{
-                        return (
-                            <li className="link" key={index}><Link to={link.link} className="link-anchor">{link.name}</Link></li>
-                        )
-                    })
-                }
-                {/* <li className="link"><a href="#" className="link-anchor">About Us</a></li>
-                <li className="link"><a href="#" className="link-anchor">Service</a></li>
-                <li className="link"><a href="#" className="link-anchor">Contacts</a></li> */}
-            </ul>
-            <CgMenuRight className='icon menu'/>
-        </div>
-        {/* navbar */}
         <div className="banner-details">
             <div className="intro">
                 <h1>Diabetics</h1>
@@ -76,48 +56,9 @@ position: relative;
     top:0;
     z-index:1;
 }
-.navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background: var(--primary-clr-7);
-    padding: 8px 1rem;
-    position:fixed;
-    top:0;
-    width: 100%;
-    z-index:9;
-}
 
-.navlinks {
-display: none;
-}
-.navlinks > *+*{
-    margin-left: 12px;
-}
-.navlinks .link .link-anchor{
-    color: var(--primary-clr-1);
-}
-.link .link-anchor{
 
-    text-transform: capitalize;
-}
 
-.logo{
-    width: 40px;
-    height:40px;
-    background: white;
-    border-radius: 25%;
-}
-.logo-img{
-    border-radius: 75%;
-
-}
-
-.menu{
-    color: var(--primary-clr-1);
-    font-size: 2rem;
-    margin-right: 1.55rem;
-}
 
 .banner-details{
     display: grid;
@@ -177,6 +118,11 @@ display: none;
     border-bottom:1px solid var(--secondary-clr-4) ;
 }
 
+.link .link-anchor{
+
+text-transform: capitalize;
+}
+
 .sidebar-links .link .link-anchor{
 font-size: 1.55rem;
 }
@@ -186,7 +132,6 @@ font-size: 1.55rem;
         display:flex;
     }
 
-    .menu,
     .sidebar,
     .close-icon{
         display: none;
@@ -211,9 +156,6 @@ font-size: 1.55rem;
 }
 
 @media (min-width: 768px){
-    .navlinks{
-        padding-right: 5rem;
-    }
     
     .banner-img{
         width: 320px;

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from flask import make_response, request, jsonify, json, abort
+from flask import make_response, request, json, abort
 from api.v1.views import app_views
 from models.county import County
 from models import storage
@@ -41,6 +41,7 @@ def update_county(id):
     """update county's details"""
     if not request.get_json():
         abort(400, description='please provide a valid json')
+
     county = storage.get(County, id)
     if county is None:
         abort(400, description='No county with an id of {}'.format(id))

@@ -7,12 +7,26 @@ inherited b other children
 from datetime import datetime
 from uuid import uuid4
 import models
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+from typing import Dict
+
+if models.storage_type == 'db_storage':
+    Base = declarative_base()
+else:
+    Base = object
+
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
 class BaseModel:
     """Basemodel declaration"""
-    def __init__(self, *args, **kwargs):
+    if models.storage_type == "db_storage":
+        id = Column(String(60), primary_key=True)
+        created_at = Column(DateTime, default=datetime.utcnow)
+        updated_at = Column(DateTime, default=datetime.utcnow)
+
+    def __init__(self, *args, **kwargs: Dict):
         """initialize the BaseModel"""
         if kwargs:
             for key, value in kwargs.items():

@@ -40,6 +40,8 @@ display:flex;
 flex-direction: column;
 max-width: 100%;
 
+
+
 .display-floating{
   position: relative;
   display: block;

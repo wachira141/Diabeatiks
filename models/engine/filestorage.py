@@ -10,7 +10,7 @@ from models.county import County
 from models.daetician import Daetician
 from models.drugs import Drugs
 from models.files import Files
-from models.file import Single_file
+from models.single_file import Single_file
 from models.location import Location
 from models.marketplace import Market_place
 from models.meal import Meal
@@ -54,6 +54,7 @@ class FileStorage:
 
     __objects = {}
     __file_name = 'file.json'
+    __filtered_list = []
 
     # def all(self, obj=None):
     #     """get all saved json objects from filestorage"""
@@ -80,6 +81,7 @@ class FileStorage:
             for key, value in self.__objects.items():
                 if cls == value.__class__ or cls == value.__class__.__name__:
                     new_dict[key] = value
+                    self.__filtered_list.append(value.to_dict()) #populate filtered list
             return new_dict
         return self.__objects
 
@@ -104,8 +106,9 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
-            print('erro')
+        except BaseException as exception:
+            # print(exception)
+            print('error reloading item')
             pass
 
 
@@ -142,9 +145,23 @@ class FileStorage:
             del self.__objects[key]
             models.storage.save()
             return True
+
             
-        
+    def filters(self, field, args):
+        """filter the objects using
+            @args - req.querystring passed by user
+            @field - field to be used for filter
+        """
     
+        indx = (len(self.__filtered_list) -1 )
+
+        while indx >= 0:
+            if (self.__filtered_list[indx].get(field) is None )\
+                 or (self.__filtered_list[indx].get(field) != args): #iterate the __filtered_list and remove
+                del self.__filtered_list[indx]                       #dict ==None and dict != the query string from user
+            indx -=1
+        return self.__filtered_list
+        
 
     def count(self, cls=None):
         """return the number of our objects"""

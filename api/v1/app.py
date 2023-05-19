@@ -4,8 +4,11 @@ from api.v1.views import app_views
 from models import storage
 
 app = Flask(__name__)
+# app.config.from_object('config.ProductionConfig')
 
 app.register_blueprint(app_views)
+
+
 
 
 app.teardown_appcontext

@@ -65,6 +65,7 @@ def update_location(id):
     """update locations's details"""
     if not request.get_json():
         abort(400, description='please provide a valid json')
+        
     location = storage.get(Location, id)
     if location is None:
         abort(400, description='No location with an id of {}'.format(id))

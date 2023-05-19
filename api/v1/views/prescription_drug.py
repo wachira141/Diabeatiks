@@ -10,16 +10,12 @@ storage_type = 'fs_storage'
 @app_views.route('/prescripting/<presc_id>/drugs/<drug_id>', methods=['POST'], strict_slashes=False)
 def create_presc_drug(presc_id, drug_id):
     "link a drug to a prescription"
-    #19dd31e1-94eb-4661-b693-366947829897 presc 
-    #0c170530-fdd5-4090-903d-26d4b19efc22 drug
-
-    #421136ab-89e0-4a85-a742-e940916d848d user 
-    #40cc5461-0a56-4f10-9c41-8459e5047390
 
     if not request.get_json():
         abort(400, description='not a json')
 
     prescription = storage.get(Prescription, presc_id)
+
     if prescription is None:
         abort(404, description='prescription not found')
     
@@ -29,7 +25,7 @@ def create_presc_drug(presc_id, drug_id):
 
     data = request.get_json()
     
-#afd2e537-6f0b-472d-a7e4-6fa40e4e6c68
+
     if storage_type == 'fs_storage':
         values = ['price', 'comments', 'side_effects']
         presc = {}
@@ -37,6 +33,8 @@ def create_presc_drug(presc_id, drug_id):
         for key, value in data.items():
             if key in values:
                 presc[key] = value
+
+        # append to the presciption drugs list
         prescription.drugs.append(presc)
         prescription.save()
         return make_response(jsonify(prescription.to_dict()), 201)
@@ -48,7 +46,8 @@ def create_presc_drug(presc_id, drug_id):
 
 @app_views.route("/prescripting/<presc_id>/drugs/<drug_id>", methods=['DELETE'], strict_slashes=False)
 def delete_presc_drug(presc_id, drug_id):
-    """delete a presc drug/ remove a drug from prescription"""
+    """delete a prescripted drug/ remove a drug from prescription"""
+    
     prescription = storage.get(Prescription, presc_id)
 
     if prescription is None:

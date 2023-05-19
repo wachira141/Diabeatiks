@@ -16,10 +16,14 @@ def get_daeticians():
         items.append(obj.to_dict())
     return make_response(json.dumps(items), 200)
 
+
+
 @app_views.route('/daetician/<id>', methods=['GET'], strict_slashes=False)
 def get_daetician(id):
     """get a single object of a daetician"""
+
     daetician = storage.get(Daetician, id)
+
     if daetician is None:
         return make_response(jsonify("No Patient with an id of {}".format(id)), 404)
     return json.dumps(daetician.to_dict(), 200)
@@ -31,13 +35,12 @@ def create_daetician():
     if not request.get_json():
         abort(400, description='please provide a valid json format')
    
-    names = ['f_name', 'l_name']
-    for name in names:
-        if name not in request.get_json():
-            abort(400, description='please provide {}'.format(name))
+    required_details = ['f_name', 'l_name', 'email']
 
-    if 'email' not in request.get_json():
-        abort(400, description='email is not provided')
+    for detail in required_details:
+        if detail not in request.get_json():
+            abort(400, description='please provide {}'.format(detail))
+
     # check the email format
     data = request.get_json()
     new_daetician = Daetician(**data)
@@ -52,13 +55,16 @@ def update_daetician(id):
     """update daetician's details"""
     if not request.get_json():
         abort(400, description='please provide a valid json')
+
     daetician = storage.get(Daetician, id)
+
     if daetician is None:
         abort(404, description='No patient with an id of {}'.format(id))
     
     data = request.get_json()
 
     ignore_keys = ['id', 'created_at', 'updated_at']
+    
     for key, val in data.items():
         if key not in ignore_keys:
             setattr(daetician, key, val)

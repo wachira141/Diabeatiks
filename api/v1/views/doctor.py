@@ -19,7 +19,9 @@ def get_doctors():
 @app_views.route('/doctor/<id>', methods=['GET'], strict_slashes=False)
 def get_doctor(id):
     """get a single object of a doctor"""
+
     doctor = storage.get(Doctor, id)
+
     if doctor is None:
         return make_response(jsonify("No Doctor with an id of {}".format(id)), 404)
     
@@ -32,13 +34,13 @@ def create_doctor():
     if not request.get_json():
         abort(400, description='please provide a valid json format')
   
-    names = ['f_name', 'l_name']
-    for name in names:
-        if name not in request.get_json():
-            abort(400, description='please provide {}'.format(name))
+    required_details = ['f_name', 'l_name', 'email']
 
-    if 'email' not in request.get_json():
-        abort(400, description='email is not provided')
+    for detail in required_details:
+        if detail not in request.get_json():
+            abort(400, description='please provide {}'.format(detail))
+
+            
     # check the email format
     data = request.get_json()
     new_doctor = Doctor(**data)

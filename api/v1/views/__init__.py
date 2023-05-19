@@ -14,3 +14,4 @@ from api.v1.views.prescription_drug import *
 from api.v1.views.appointments import *
 from api.v1.views.files import *
 from api.v1.views.single_file import *
+from api.v1.views.doctor_search import *

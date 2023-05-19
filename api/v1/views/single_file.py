@@ -11,16 +11,17 @@ app_storage ='fs_storage'
 
 @app_views.route('/single-files/<file_id>/single_file', methods=['POST'], strict_slashes=False)
 def create_s_file(file_id):
-    """create a single file and link a singlefile to related files"""
+    """create a single file and link a singlefile to related File(ffile created throught files.py)"""
     if not request.get_json():
         abort(400, description='not a valid json')
     
     main_file = storage.get(Files, file_id)
     if main_file is None:
-        abort(404, description='file does not exist')
+        abort(404, description='main file does not exist')
 
     data = request.get_json()
-    data['file_id'] = file_id
+
+    data['file_id'] = file_id #link the file container to the single file to create rlship
     if 'name' not in data:
         abort(400, description='provide the files name')
 
@@ -48,17 +49,19 @@ def update_file(id):
     """update  a file obj in storage"""
     if not request.get_json():
         abort(400, description='not a valid json')
+
     s_file = storage.get(Single_file, id)
-    data = request.get_json()
 
     if s_file is None:
         abort(404, description='No file with an id of {} found'.format(id))
     
     ignore_keys = ['id', 'created_at', 'updated_at', 'file_id']
 
+    data = request.get_json()
     for k, v in data.items():
         if k not in ignore_keys:
             setattr(s_file, k, v)
+            
     storage.save()
     return make_response(jsonify(s_file.to_dict()), 200)
 

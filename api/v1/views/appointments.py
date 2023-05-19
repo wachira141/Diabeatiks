@@ -23,9 +23,11 @@ def create_appointments():
         abort(400, description='not a valid json')
 
     category = request.args.get('category', default=None, type=str)
+   
     if category is None:
         abort(404, description='No category specified')
     
+    # get the appointer's id from the url query string
     appointer_id = request.args.get('appointer', default=None, type=str)
     if appointer_id is None:
         abort(404, description='No appointer specified')
@@ -33,6 +35,7 @@ def create_appointments():
     
     data = request.get_json()
 
+    # find if the user is same with the appointers id from query string
     if data['user'] == appointer_id:
         abort(400, description='You cannot make an appointment with yourself')
 
@@ -48,6 +51,8 @@ def create_appointments():
     
     authorized_categories = ['doctor', 'daetician', 'pharmacist']
 
+
+    # check if category is only from accepted
     if category not in authorized_categories:
         abort(400, description='Unknown user specified')
     
@@ -80,7 +85,7 @@ def get_appointment(id):
 
 @app_views.route('/user/<user_id>/appointments', methods=['GET'], strict_slashes=False)
 def get_appntmnts(user_id):
-    """get all user's appointments"""
+    """get all user's appointments [get all appointments i have sent]"""
     user = storage.get(Patient, user_id)
     if user is None:
         abort(404, description='user not found')
@@ -100,6 +105,8 @@ def update_appointment(appnt_id):
     """update an appointment created"""
     if not request.get_json():
         abort(400, description='please provide a valid json')
+
+    # check if the appointment exists
     appointment = storage.get(Appointments, appnt_id)
     if appointment is None:
         abort(404, description='No appointment with an id of {}'.format(appnt_id))
@@ -136,17 +143,19 @@ def delete_appointment(id):
 
 @app_views.route('/appointments', methods=['GET'], strict_slashes=False)
 def get_appointers_appntmnts():
-    """get appntmnts sent to a doctor"""
+    """get appntmnts sent to a doctor. [get appointments sent to me]"""
     
+    # get the appointer's id from the url query string
     appointer_id = request.args.get('appointer', default=None, type=str)
     if appointer_id is None:
         abort(404, description='No appointer specified')
     
+    # get the appointments category eg ?category=doctor from query string
     category = request.args.get('category', default=None, type=str)
     if category is None:
         abort(404, description='No category specified')
 
-
+    # check if the  category is one of the authorized [this is to eliminate sending appointments to eg patients ]
     get_appointer = storage.get(appointers_list[category], appointer_id)
 
     if get_appointer is None:
@@ -158,6 +167,7 @@ def get_appointers_appntmnts():
         abort(400, description='No appointments found')
 
     my_appntmnts = []
+    # get all appointments and filter against appointer_id from query string
     for appntmnt in all_appointment:
         if appntmnt.to_dict()['appointer_id'] == appointer_id:
             my_appntmnts.append(appntmnt.to_dict())

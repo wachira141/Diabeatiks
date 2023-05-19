@@ -57,6 +57,7 @@ def get_all_subcounties(county_id):
     
     subcounties = storage.all(Subcounty).values()
     sc_list = []
+
     for sbcnty in subcounties:
         if sbcnty.to_dict()['county'] == county_id:
             sc_list.append(sbcnty.to_dict())
@@ -71,6 +72,7 @@ def update_subcounty(id):
     """update subcounty's details"""
     if not request.get_json():
         abort(400, description='please provide a valid json')
+        
     subcounty = storage.get(Subcounty, id)
     if subcounty is None:
         abort(400, description='No subcounty with an id of {}'.format(id))

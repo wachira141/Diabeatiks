@@ -64,6 +64,7 @@ def update_village(id):
     """update village's details"""
     if not request.get_json():
         abort(400, description='please provide a valid json')
+        
     village = storage.get(Village, id)
     if village is None:
         abort(400, description='No village with an id of {}'.format(id))
